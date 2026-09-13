@@ -45,8 +45,12 @@ def _env(name: str, default: str = "") -> str:
 
 
 def _int_or_none(raw: str) -> int | None:
-    raw = raw.strip()
-    return int(raw) if raw.isdigit() else None
+    # try/except plutot qu'un test isdigit() : "²".isdigit() est vrai mais int("²") leve
+    # ValueError, et rien ne doit planter a l'import.
+    try:
+        return int(raw.strip())
+    except ValueError:
+        return None
 
 
 def _float_or_default(raw: str, default: float) -> float:
@@ -62,9 +66,12 @@ def _parse_target(raw: str) -> int | str | None:
     raw = raw.strip()
     if not raw:
         return None
-    if raw.lstrip("-").isdigit():
+    # try/except plutot que lstrip("-").isdigit() : "--5" passait le test puis int("--5")
+    # levait ValueError a l'import.
+    try:
         return int(raw)
-    return raw
+    except ValueError:
+        return raw
 
 
 # --- Telegram (Telethon, compte utilisateur Jonas) ---

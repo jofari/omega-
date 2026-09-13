@@ -16,6 +16,7 @@ import urllib.error
 import urllib.request
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
+from html import escape
 from pathlib import Path
 from urllib.parse import urlsplit
 from uuid import uuid4
@@ -351,4 +352,9 @@ async def index() -> HTMLResponse:
     # Le token anti-CSRF est injecte dans la page. Une page tierce ne peut pas lire cette
     # reponse (same-origin policy), donc ne peut pas obtenir le token.
     html = await asyncio.to_thread((STATIC_DIR / "index.html").read_text, encoding="utf-8")
-    return HTMLResponse(html.replace("__OMEGA_TOKEN__", OMEGA_TOKEN), headers={"Cache-Control": "no-store"})
+    # escape(quote=True) : un OMEGA_SECRET contenant " ou & tronquerait l'attribut content=""
+    # du <meta>, et tout repondrait 403 sans cause visible. Le navigateur decode les entites.
+    return HTMLResponse(
+        html.replace("__OMEGA_TOKEN__", escape(OMEGA_TOKEN, quote=True)),
+        headers={"Cache-Control": "no-store"},
+    )

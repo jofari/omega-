@@ -354,7 +354,12 @@ talkBtn.addEventListener("pointercancel", onPressEnd);
 talkBtn.addEventListener("pointerleave", onPressEnd);
 talkBtn.addEventListener("lostpointercapture", onPressEnd);
 talkBtn.addEventListener("contextmenu", (e) => e.preventDefault()); // appui long mobile
-window.addEventListener("blur", () => onPressEnd());
+// Sur blur, on ne coupe que si l'enregistrement a vraiment demarre : le prompt de permission
+// micro fait perdre le focus a la fenetre pendant que getUserMedia est en attente, et couper
+// a ce moment annulait le 1er enregistrement sans feedback (a chaque chargement de page).
+window.addEventListener("blur", () => {
+  if (mediaRecorder) onPressEnd();
+});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) onPressEnd();
 });
@@ -384,7 +389,10 @@ async function refreshStatus() {
     metricOpenrouter.textContent =
       or.status === "ok" ? JSON.stringify(or.detail) : (or.detail || "à configurer");
 
-    if (data.queue.last_exchange) {
+    // Uniquement au repos : pendant un echange (transcription, reflexion, lecture) ou apres
+    // une erreur, le poll ecraserait le texte live (nouvelle transcription, message d'erreur)
+    // par l'ancien echange.
+    if (data.queue.last_exchange && currentState === "idle") {
       lastUserEl.textContent = data.queue.last_exchange.user;
       lastHermesEl.textContent = data.queue.last_exchange.hermes;
     }

@@ -7,11 +7,12 @@ Chaque critique est jugée contre BRIEF.md (source de vérité), pas contre l'op
 - statut : TERMINÉ (exit 0) — 14 fichiers livrés (backend + frontend + config + README)
 
 ## Tour 1 — critique + amélioration
-- critique : FAIT — 14 défauts (fluidité, bug chat_id, sécurité, fuites, Windows) — fusionnés dans CRITIQUE.md
-- amélioration : EN COURS (proc_2ec5435407b0)
+- critique : FAIT — 14 défauts — fusionnés dans CRITIQUE.md
+- amélioration : FAIT — production-grade (to_thread, TTS streamé, sécurité, événementiel)
 
 ## Tour 2 — critique + amélioration
-- (à venir)
+- critique : FAIT — 5 défauts restants (uvloop/Win, int_or_none, blur, poll UI, token escape)
+- amélioration : EN COURS (proc_e891762b0ffd)
 
 ## Tour 3 — critique finale
 - (à venir)
