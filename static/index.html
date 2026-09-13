@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Token anti-CSRF injecte par le backend (GET /) ; app.js le renvoie dans X-Omega-Token. -->
+<meta name="omega-token" content="__OMEGA_TOKEN__" />
+<title>Omega</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="omega-shell">
+    <header class="omega-header">
+      <div class="omega-logo">
+        <span class="omega-glyph">&#937;</span>
+        <span class="omega-title">OMEGA</span>
+      </div>
+      <div class="omega-status" id="status-pill">
+        <span class="dot" id="status-dot"></span>
+        <span id="status-text">pret</span>
+      </div>
+    </header>
+
+    <main class="omega-main">
+      <section class="omega-core">
+        <canvas id="orb" width="320" height="320"></canvas>
+        <button id="talk-btn" class="talk-btn">
+          <span id="talk-btn-label">Parler</span>
+        </button>
+        <p class="hint">Maintiens appuye pour parler, relache pour envoyer.</p>
+      </section>
+
+      <section class="omega-panel">
+        <div class="panel-block">
+          <h2>Dernier echange</h2>
+          <div class="exchange">
+            <div class="exchange-row">
+              <span class="exchange-label">Toi</span>
+              <p id="last-user">—</p>
+            </div>
+            <div class="exchange-row">
+              <span class="exchange-label">Hermes</span>
+              <p id="last-hermes">—</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-block">
+          <h2>Cockpit</h2>
+          <ul class="metrics">
+            <li>
+              <span class="metric-label">Telegram</span>
+              <span class="metric-value" id="metric-telegram">—</span>
+            </li>
+            <li>
+              <span class="metric-label">File d'attente</span>
+              <span class="metric-value" id="metric-queue">—</span>
+            </li>
+            <li>
+              <span class="metric-label">Whisper (STT)</span>
+              <span class="metric-value" id="metric-stt">—</span>
+            </li>
+            <li>
+              <span class="metric-label">Claude Code</span>
+              <span class="metric-value" id="metric-claude">—</span>
+            </li>
+            <li>
+              <span class="metric-label">OpenRouter</span>
+              <span class="metric-value" id="metric-openrouter">—</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <audio id="tts-audio" hidden></audio>
+  <script src="/static/app.js"></script>
+</body>
+</html>

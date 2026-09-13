@@ -1,0 +1,12 @@
+# Secrets et session Telegram (une session = acces total au compte) : ne jamais commiter
+.env
+*.session
+*.session-journal
+
+# Fichiers temporaires (audio STT/TTS)
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
