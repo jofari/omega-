@@ -15,4 +15,7 @@ Chaque critique est jugée contre BRIEF.md (source de vérité), pas contre l'op
 - amélioration : EN COURS (proc_e891762b0ffd)
 
 ## Tour 3 — critique finale
-- (à venir)
+- DONE : aucun défaut bloquant. Restent uniquement des caveats runtime à vérifier sur le PC
+  Windows (micro/navigateur, round-trip Telegram réel, wheels Windows, edge-tts réseau).
+
+**Convergence : 3 tours.** Build → 14 défauts → fix → 5 défauts → fix → clean.
