@@ -59,6 +59,27 @@ Si des accents s'affichent mal ou provoquent une erreur dans la console (encodag
 cp1252), l'app force deja l'UTF-8 ; en complement tu peux lancer `set PYTHONUTF8=1`
 (PowerShell : `$env:PYTHONUTF8=1`) avant `uvicorn`.
 
+## Lancement Windows (start.bat)
+
+Une fois l'installation terminee (etapes 1 a 5 ci-dessus), il suffit de
+double-cliquer sur `START.BAT` a la racine du projet. Le script :
+
+1. se place dans son propre dossier (fonctionne depuis n'importe quel lecteur) ;
+2. force `PYTHONUTF8=1` pour eviter les problemes d'accents dans la console ;
+3. verifie que `.env` existe, sinon affiche un avertissement et s'arrete ;
+4. active `.venv\Scripts\activate.bat` s'il existe (sinon utilise le Python du PATH) ;
+5. ouvre le navigateur par defaut sur `http://127.0.0.1:8000` (apres 3 s, le
+   temps que le serveur demarre) ;
+6. lance `python -m uvicorn app:app --host 127.0.0.1 --port 8000`.
+
+`Ctrl+C` dans la fenetre arrete le serveur ; la fenetre reste ouverte pour lire
+les eventuels messages d'erreur. Le script est relancable a volonte : il ne cree
+ni ne modifie aucun fichier. Equivalent manuel depuis un terminal :
+
+```bat
+START.BAT
+```
+
 ## Installation (Linux / dev)
 
 ```bash
